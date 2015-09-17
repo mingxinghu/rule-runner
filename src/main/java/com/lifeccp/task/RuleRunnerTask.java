@@ -33,16 +33,16 @@ public class RuleRunnerTask {
     }*/
 
     //每1分钟执行一次
-    @Scheduled(cron = "*/5 * * * * *")
-    public void ruleRunner(){
+    @Scheduled(cron = "* */15 * * * *")
+    public void ruleRunner() {
         String runnerTag = simpleDateFormat.format(System.currentTimeMillis());
         String batchNo = CodeGenerator.ShortText(runnerTag)[0];
-        logger.info("rule runner["+batchNo+"] ---> begin at " + runnerTag);
+        logger.info("rule runner[" + batchNo + "] ---> begin at " + runnerTag);
         try {
             ruleRunnerService.execute(batchNo);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-        logger.info("rule runner["+batchNo+"] ---> end at " + simpleDateFormat.format(System.currentTimeMillis()));
+        logger.info("rule runner[" + batchNo + "] ---> end at " + simpleDateFormat.format(System.currentTimeMillis()));
     }
 }
